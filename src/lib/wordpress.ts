@@ -1,5 +1,3 @@
-import Parser from 'rss-parser';
-
 export interface BlogPost {
   title: string;
   link: string;
@@ -8,8 +6,6 @@ export interface BlogPost {
   image?: string;
   categories: string[];
 }
-
-const parser = new Parser();
 
 // Simple cache to avoid excessive API calls
 const cache = new Map<string, { data: BlogPost[]; timestamp: number }>();
@@ -31,6 +27,58 @@ function formatDate(dateString: string): string {
     month: 'long',
     year: 'numeric',
   });
+}
+
+async function parseRssFeed(rssUrl: string): Promise<BlogPost[]> {
+  try {
+    const response = await fetch(rssUrl);
+    const text = await response.text();
+    
+    // Parse XML using DOMParser (browser native)
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(text, 'text/xml');
+    
+    // Check for parsing errors
+    const parserError = xmlDoc.querySelector('parsererror');
+    if (parserError) {
+      throw new Error('XML parsing error');
+    }
+    
+    // Get all items
+    const items = xmlDoc.querySelectorAll('item');
+    const posts: BlogPost[] = [];
+    
+    items.forEach((item, index) => {
+      if (index >= 6) return; // Limit to 6 posts
+      
+      const title = item.querySelector('title')?.textContent || '';
+      const link = item.querySelector('link')?.textContent || '';
+      const pubDate = item.querySelector('pubDate')?.textContent || '';
+      const description = item.querySelector('description')?.textContent || '';
+      
+      // Extract categories
+      const categoryNodes = item.querySelectorAll('category');
+      const categories: string[] = [];
+      categoryNodes.forEach((cat) => {
+        const catText = cat.textContent;
+        if (catText) categories.push(catText);
+      });
+      
+      posts.push({
+        title: stripHtml(title),
+        link,
+        date: pubDate ? formatDate(pubDate) : '',
+        excerpt: truncateText(stripHtml(description), 180),
+        image: undefined,
+        categories,
+      });
+    });
+    
+    return posts;
+  } catch (error) {
+    console.error('RSS parsing failed:', error);
+    return [];
+  }
 }
 
 export async function fetchBlogPosts(
@@ -68,30 +116,14 @@ export async function fetchBlogPosts(
   } catch (restError) {
     console.warn('REST API failed, falling back to RSS:', restError);
 
-    // Fallback to RSS
-    try {
-      const feed = await parser.parseURL(rssUrl);
-
-      const posts =
-        feed.items.slice(0, 6).map((item) => ({
-          title: item.title || '',
-          link: item.link || '',
-          date: item.pubDate ? formatDate(item.pubDate) : '',
-          excerpt: truncateText(
-            stripHtml(item.contentSnippet || item.content || ''),
-            180
-          ),
-          image: undefined,
-          categories: item.categories || [],
-        })) || [];
-
+    // Fallback to RSS using native browser DOMParser
+    const posts = await parseRssFeed(rssUrl);
+    
+    if (posts.length > 0) {
       // Update cache
       cache.set(restUrl, { data: posts, timestamp: Date.now() });
-
-      return posts;
-    } catch (rssError) {
-      console.error('Both REST and RSS failed:', rssError);
-      return [];
     }
+
+    return posts;
   }
 }
