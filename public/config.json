@@ -1,0 +1,59 @@
+{
+  "logoUrl": "https://www.transvias.com.br/wp-content/uploads/2023/01/logo-transvias.svg",
+  "tagline": "Encontre rotas, cotações e notícias do transporte de cargas",
+  "primaryColor": "#0066CC",
+  "featuredLinks": [
+    {
+      "label": "Consultar Rotas",
+      "href": "https://www.transvias.com.br/rotas",
+      "icon": "Route",
+      "description": "Encontre transportadoras por rota"
+    },
+    {
+      "label": "Cotar Frete",
+      "href": "https://www.transvias.com.br/contato",
+      "icon": "Calculator",
+      "description": "Entre em contato com transportadoras"
+    },
+    {
+      "label": "Guia Geral dos Transportes",
+      "href": "https://www.transvias.com.br/guia",
+      "icon": "BookOpen",
+      "description": "Edição atual do guia"
+    },
+    {
+      "label": "Notícias Transvias",
+      "href": "https://noticias.transvias.com.br",
+      "icon": "Newspaper",
+      "description": "Acompanhe as últimas novidades"
+    },
+    {
+      "label": "Anuncie no Transvias",
+      "href": "https://www.transvias.com.br/anuncie",
+      "icon": "Megaphone",
+      "description": "Divulgue sua empresa"
+    },
+    {
+      "label": "Fale no WhatsApp",
+      "href": "https://wa.me/551121377000",
+      "icon": "MessageSquare",
+      "description": "Atendimento direto"
+    }
+  ],
+  "blogRestUrl": "https://noticias.transvias.com.br/wp-json/wp/v2/posts?_embed&per_page=6",
+  "blogRssUrl": "https://noticias.transvias.com.br/feed/",
+  "enableFiltersByCategory": false,
+  "social": {
+    "linkedin": "https://www.linkedin.com/company/transvias",
+    "instagram": "https://www.instagram.com/transvias",
+    "youtube": "https://www.youtube.com/@transvias"
+  },
+  "about": {
+    "text": "Desde 1951, o Transvias conecta embarcadores e transportadoras com dados confiáveis, rotas e conteúdo especializado sobre logística de cargas no Brasil.",
+    "link": "https://www.transvias.com.br/sobre"
+  },
+  "footer": {
+    "email": "redessociais@transvias.com.br",
+    "privacyLink": "https://www.transvias.com.br/politica-de-privacidade"
+  }
+}
