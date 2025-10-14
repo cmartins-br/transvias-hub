@@ -2,24 +2,25 @@
   "logoUrl": "https://www.transvias.com.br/wp-content/uploads/2023/01/logo-transvias.svg",
   "tagline": "Encontre rotas, cotações e notícias do transporte de cargas",
   "primaryColor": "#0066CC",
+  "highlightedLinks": [],
   "featuredLinks": [
     {
       "label": "Consultar Rotas",
       "href": "https://www.transvias.com.br/rotas",
-      "icon": "Route",
-      "description": "Encontre transportadoras por rota"
+      "icon": "Truck",
+      "description": "Encontre transportadoras que atendem sua rota em todo o Brasil."
     },
     {
-      "label": "Cotar Frete",
-      "href": "https://www.transvias.com.br/contato",
-      "icon": "Calculator",
-      "description": "Entre em contato com transportadoras"
+      "label": "Fornecedores para sua Logística",
+      "href": "https://www.transvias.com.br/fornecedores",
+      "icon": "Factory",
+      "description": "Consulte fornecedores de tecnologia, equipamentos, insumos e serviços que apoiam sua operação de transporte."
     },
     {
-      "label": "Guia Geral dos Transportes",
-      "href": "https://www.transvias.com.br/guia",
-      "icon": "BookOpen",
-      "description": "Edição atual do guia"
+      "label": "Transportadoras de Cargas Especiais",
+      "href": "https://www.transvias.com.br/cargas-especiais",
+      "icon": "Package",
+      "description": "Pesquise empresas especializadas em transporte de máquinas, químicos, farmacêuticos e cargas pesadas."
     },
     {
       "label": "Notícias Transvias",
@@ -28,10 +29,10 @@
       "description": "Acompanhe as últimas novidades"
     },
     {
-      "label": "Anuncie no Transvias",
+      "label": "Anuncie sua Empresa",
       "href": "https://www.transvias.com.br/anuncie",
-      "icon": "Megaphone",
-      "description": "Divulgue sua empresa"
+      "icon": "Briefcase",
+      "description": "Divulgue seus serviços no maior portal de transportes do Brasil e alcance embarcadores em todo o país."
     },
     {
       "label": "Fale no WhatsApp",
@@ -44,9 +45,10 @@
   "blogRssUrl": "https://noticias.transvias.com.br/feed/",
   "enableFiltersByCategory": false,
   "social": {
-    "linkedin": "https://www.linkedin.com/company/transvias",
-    "instagram": "https://www.instagram.com/transvias",
-    "youtube": "https://www.youtube.com/@transvias"
+    "linkedin": "https://www.linkedin.com/company/editora-transvias",
+    "instagram": "https://www.instagram.com/transvias_br",
+    "youtube": "https://www.youtube.com/@transvias",
+    "twitter": "https://x.com/transvias"
   },
   "about": {
     "text": "Desde 1951, o Transvias conecta embarcadores e transportadoras com dados confiáveis, rotas e conteúdo especializado sobre logística de cargas no Brasil.",

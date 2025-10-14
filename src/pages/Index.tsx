@@ -9,6 +9,12 @@ import { ExternalLink } from "lucide-react";
 interface Config {
   logoUrl: string;
   tagline: string;
+  highlightedLinks?: Array<{
+    label: string;
+    href: string;
+    icon: string;
+    description?: string;
+  }>;
   featuredLinks: Array<{
     label: string;
     href: string;
@@ -21,6 +27,7 @@ interface Config {
     linkedin?: string;
     instagram?: string;
     youtube?: string;
+    twitter?: string;
   };
   about: {
     text: string;
@@ -65,6 +72,24 @@ const Index = () => {
             Conectando embarcadores e transportadoras desde 1951.
           </p>
         </section>
+
+        {/* Highlighted Links (temporary/promotional) */}
+        {config.highlightedLinks && config.highlightedLinks.length > 0 && (
+          <section className="mb-8 animate-slide-up" aria-labelledby="highlighted-heading">
+            <h2 id="highlighted-heading" className="mb-4 text-xl font-bold text-center">
+              Destaques
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {config.highlightedLinks.map((link) => (
+                <LinkButton 
+                  key={link.href} 
+                  {...link} 
+                  className="border-primary/30 bg-primary/5"
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Featured Links */}
         <section className="mb-16 animate-slide-up" aria-labelledby="links-heading">

@@ -1,27 +1,31 @@
-import { Linkedin, Instagram, Youtube } from "lucide-react";
+import { Linkedin, Instagram, Youtube, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface SocialLinksProps {
   linkedin?: string;
   instagram?: string;
   youtube?: string;
+  twitter?: string;
 }
 
 const socialIcons = {
   linkedin: { Icon: Linkedin, label: "LinkedIn" },
   instagram: { Icon: Instagram, label: "Instagram" },
   youtube: { Icon: Youtube, label: "YouTube" },
+  twitter: { Icon: Twitter, label: "X (Twitter)" },
 };
 
 export function SocialLinks({
   linkedin,
   instagram,
   youtube,
+  twitter,
 }: SocialLinksProps) {
   const links = [
     { platform: "linkedin" as const, url: linkedin },
     { platform: "instagram" as const, url: instagram },
     { platform: "youtube" as const, url: youtube },
+    { platform: "twitter" as const, url: twitter },
   ].filter((link) => link.url);
 
   if (links.length === 0) return null;
