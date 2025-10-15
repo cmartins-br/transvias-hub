@@ -1,59 +1,49 @@
-# Transvias — Portal de Links
+# Portal de Links Transvias
 
-Microsite "link-in-bio" oficial da Transvias para centralizar acesso a rotas, cotações, notícias e conteúdo sobre transporte de cargas.
+Portal de links (link-in-bio) profissional para a Transvias com admin integrado, atualização automática do blog e sistema de links destacados.
 
-## 🚀 Tecnologias
+## 🚀 Funcionalidades
 
-- **React 18** + **TypeScript**
-- **Vite** (build e dev server)
-- **Tailwind CSS** + **shadcn/ui**
-- **Framer Motion** (animações)
-- **Lucide React** (ícones)
-- **WordPress REST API** (feed de notícias com fallback RSS)
+- **Links Configuráveis**: Sistema de links principais gerenciado via `config.json`
+- **Admin Completo**: Interface de administração para gerenciar links destacados temporários
+- **Links Destacados**: Até 4 links que podem ser ativados/desativados no topo da página
+- **Upload de Thumbnails**: Sistema de upload de imagens para os links
+- **Busca Automática de Metadados**: Extrai título, descrição e imagem de qualquer URL
+- **Blog Integrado**: Atualização automática do blog via WordPress REST API
+- **SEO Otimizado**: Meta tags, Open Graph, Schema.org
+- **Dark Mode**: Tema escuro automático
+- **Responsivo**: Design mobile-first
+- **UTM Tracking**: Parâmetros UTM automáticos em todos os links externos
+- **Analytics**: Suporte para GA4 e Meta Pixel
 
-## 📋 Funcionalidades
+## 🛠️ Tecnologias
 
-- ✅ Header fixo com logo e CTA principal
-- ✅ 6 botões de links principais com ícones e descrições
-- ✅ UTM tracking automático em todos os links externos
-- ✅ Seção "Últimas do Blog" (WordPress REST API + fallback RSS)
-- ✅ Cache de 30 minutos nos posts do blog
-- ✅ Seção "Sobre o Transvias"
-- ✅ Links para redes sociais
-- ✅ Footer completo com copyright e políticas
-- ✅ Dark mode automático
-- ✅ SEO otimizado (meta tags, Open Graph, Schema.org)
-- ✅ Totalmente responsivo e acessível (WCAG 2.1)
-- ✅ Google Analytics 4 e Meta Pixel integrados
-- ✅ Animações suaves e loading states
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Backend**: Lovable Cloud (Supabase)
+- **Autenticação**: Email/Senha com auto-confirm
+- **Storage**: Bucket para thumbnails
+- **Animations**: Framer Motion
 
-## 🎨 Design System
+## 📋 Configuração Inicial
 
-O projeto usa um design system completo definido em `src/index.css` e `tailwind.config.ts`:
+### 1. Criar Primeira Conta Admin
 
-- **Paleta de cores**: Neutros + azul corporativo (`#0066CC`)
-- **Sombras**: `shadow-soft`, `shadow-medium`, `shadow-hover`
-- **Animações**: `fade-in`, `slide-up`
-- **Bordas**: `rounded-xl` (12px)
-- **Tipografia**: Sistema (Inter/Segoe UI/Roboto)
+Acesse `/auth` e crie sua primeira conta:
+- Email: seu@email.com
+- Senha: mínimo 6 caracteres
 
-## ⚙️ Configuração
+A primeira conta criada será o administrador.
 
-### 1. Variáveis de ambiente (opcional)
+### 2. Acessar o Admin
 
-Crie um arquivo `.env` na raiz do projeto:
+Após login, acesse `/admin` para gerenciar os links destacados.
 
-```env
-# Google Analytics 4 (opcional)
-VITE_GA_ID=G-XXXXXXXXXX
+## 🔧 Configuração de Links
 
-# Meta Pixel (opcional)
-VITE_META_PIXEL_ID=123456789
-```
+### Links Principais (config.json)
 
-### 2. Arquivo de configuração (`public/config.json`)
-
-Edite o arquivo `public/config.json` para personalizar:
+Edite `public/config.json` para configurar:
 
 ```json
 {
@@ -64,187 +54,151 @@ Edite o arquivo `public/config.json` para personalizar:
     {
       "label": "Consultar Rotas",
       "href": "https://www.transvias.com.br/rotas",
-      "icon": "Route",
-      "description": "Encontre transportadoras por rota"
+      "icon": "Truck",
+      "description": "Encontre transportadoras que atendem sua rota"
     }
-    // ... mais links
   ],
   "blogRestUrl": "https://noticias.transvias.com.br/wp-json/wp/v2/posts?_embed&per_page=6",
   "blogRssUrl": "https://noticias.transvias.com.br/feed/",
   "social": {
-    "linkedin": "https://www.linkedin.com/company/transvias",
-    "instagram": "https://www.instagram.com/transvias",
-    "youtube": "https://www.youtube.com/@transvias"
-  },
-  "about": {
-    "text": "Desde 1951, o Transvias conecta embarcadores e transportadoras...",
-    "link": "https://www.transvias.com.br/sobre"
-  },
-  "footer": {
-    "email": "redessociais@transvias.com.br",
-    "privacyLink": "https://www.transvias.com.br/politica-de-privacidade"
+    "linkedin": "https://www.linkedin.com/company/editora-transvias",
+    "instagram": "https://www.instagram.com/transvias_br",
+    "youtube": "https://www.youtube.com/@transvias",
+    "twitter": "https://x.com/transvias"
   }
 }
 ```
 
-### 3. Ícones disponíveis (Lucide React)
+## 📱 Admin - Links Destacados
 
-Os ícones são importados de `lucide-react`. Exemplos:
-- `Route`, `Calculator`, `BookOpen`, `Newspaper`
-- `Megaphone`, `MessageSquare`, `Mail`, `ExternalLink`
-- [Ver todos os ícones](https://lucide.dev/icons/)
+### Acessar Admin
 
-## 🛠️ Instalação e Desenvolvimento
+1. Acesse `https://seu-site.com/admin`
+2. Faça login com suas credenciais
+3. Gerencie links destacados
 
-```bash
-# Instalar dependências
-npm install
+### Criar Link Destacado
 
-# Iniciar servidor de desenvolvimento
-npm run dev
+1. Clique em "Novo Link"
+2. Cole a URL do destino
+3. Clique no ícone de download para buscar metadados automaticamente
+4. Edite título, subtítulo conforme necessário
+5. Faça upload de thumbnail (opcional) ou use a imagem extraída
+6. Escolha um ícone do Lucide (ex: Star, Sparkles, Gift)
+7. Defina a ordem de exibição
+8. Ative o link
+9. Clique em "Criar"
 
-# Build para produção
-npm run build
+### Gerenciar Links
 
-# Preview do build de produção
-npm run preview
-```
+- **Ativar/Desativar**: Clique no ícone de olho
+- **Editar**: Clique no ícone de lápis
+- **Excluir**: Clique no ícone de lixeira
+- **Reordenar**: Altere o campo "Ordem de Exibição"
 
-## 📊 UTM Tracking
+### Busca Automática de Metadados
 
-Todos os links externos recebem automaticamente os seguintes parâmetros UTM:
-- `utm_source=linktree-transvias`
-- `utm_medium=microsite`
-- `utm_campaign=perfil`
+O sistema extrai automaticamente:
+- **Título**: Tag `<title>` ou Open Graph `og:title`
+- **Descrição**: Meta description ou `og:description`
+- **Imagem**: Open Graph `og:image`
 
-Para customizar, edite o arquivo `src/lib/utm.ts`.
+### Upload de Thumbnails
 
-## 📰 Integração com WordPress
+- Formatos: JPG, PNG, WEBP, GIF
+- Tamanho máximo: 5MB
+- As imagens são armazenadas no bucket público `link-thumbnails`
 
-### REST API (preferencial)
+## 🎨 Personalização
 
-Endpoint: `https://noticias.transvias.com.br/wp-json/wp/v2/posts?_embed&per_page=6`
+### Ícones Disponíveis
 
-**Campos extraídos:**
-- `title.rendered` → Título
-- `link` → URL do post
-- `date` → Data de publicação
-- `excerpt.rendered` → Resumo (truncado ~180 caracteres)
-- `_embedded['wp:featuredmedia'][0].source_url` → Imagem destacada
-- `_embedded['wp:term'][0][].name` → Categorias
+Todos os ícones do [Lucide](https://lucide.dev/icons/) podem ser usados:
+- `Link`, `Star`, `Heart`, `Gift`, `Sparkles`
+- `Truck`, `Package`, `Factory`, `Briefcase`
+- `MessageSquare`, `Newspaper`, etc.
 
-### RSS Feed (fallback)
+### Ordem dos Links
 
-Endpoint: `https://noticias.transvias.com.br/feed/`
+Os links destacados aparecem:
+1. **Topo**: Links destacados ativos (do banco de dados)
+2. **Meio**: Links principais (do config.json)
+3. **Abaixo**: Blog, sobre, redes sociais
 
-Usado automaticamente se a REST API falhar.
+## 🔒 Segurança
 
-### Cache
+- **Autenticação**: Email/senha obrigatório para admin
+- **RLS Policies**: Políticas de segurança no banco de dados
+- **Storage Seguro**: Upload apenas para usuários autenticados
+- **Auto-confirm**: Emails confirmados automaticamente (desenvolvimento)
 
-Os posts são cacheados por **30 minutos** para evitar chamadas excessivas à API.
-
-## 🔍 SEO
-
-O microsite implementa:
-
-- ✅ Meta tags completas (title, description, author)
-- ✅ Open Graph (Facebook, LinkedIn)
-- ✅ Twitter Cards
-- ✅ Schema.org JSON-LD (Organization)
-- ✅ Canonical URL
-- ✅ Robots.txt otimizado
-- ✅ Sitemap (adicionar manualmente se necessário)
-- ✅ Semântica HTML5 (`<header>`, `<main>`, `<section>`, `<footer>`)
-- ✅ Alt text em todas as imagens
-- ✅ ARIA labels para acessibilidade
-
-## 📈 Analytics
+## 📊 Analytics
 
 ### Google Analytics 4
 
-1. Adicione o ID no `.env`: `VITE_GA_ID=G-XXXXXXXXXX`
-2. Inclua o script no `index.html`:
-
-```html
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+Adicione em `.env`:
+```env
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 ```
 
 ### Meta Pixel
 
-1. Adicione o ID no `.env`: `VITE_META_PIXEL_ID=123456789`
-2. Inclua o script no `index.html`:
-
-```html
-<!-- Meta Pixel Code -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '123456789');
-  fbq('track', 'PageView');
-</script>
+Adicione em `.env`:
+```env
+NEXT_PUBLIC_META_PIXEL_ID=XXXXXXXXXX
 ```
-
-### Eventos rastreados
-
-- **Clique em link principal**: `event_category: 'link'`
-- **Clique em post do blog**: `event_category: 'blog_post'`
 
 ## 🚀 Deploy
 
-### Vercel (recomendado)
+### Vercel (Recomendado)
 
-1. Conecte o repositório Git no [Vercel](https://vercel.com)
-2. Configure as variáveis de ambiente (se necessário)
-3. Deploy automático a cada push
+1. Conecte seu repositório
+2. Configure as variáveis de ambiente
+3. Deploy automático
 
-### Netlify
+O Lovable Cloud (backend) é provisionado automaticamente.
 
-1. Conecte o repositório no [Netlify](https://netlify.com)
-2. Build command: `npm run build`
-3. Publish directory: `dist`
+## 📝 Estrutura do Projeto
 
-### Outras plataformas
+```
+├── public/
+│   ├── config.json          # Configuração de links principais
+│   └── robots.txt
+├── src/
+│   ├── components/
+│   │   ├── admin/
+│   │   │   └── LinkForm.tsx # Formulário de links destacados
+│   │   ├── Header.tsx
+│   │   ├── Footer.tsx
+│   │   ├── LinkButton.tsx
+│   │   ├── BlogSection.tsx
+│   │   └── SocialLinks.tsx
+│   ├── pages/
+│   │   ├── Index.tsx        # Página principal
+│   │   ├── Auth.tsx         # Login/Cadastro
+│   │   └── Admin.tsx        # Painel admin
+│   ├── lib/
+│   │   ├── wordpress.ts     # Integração WordPress
+│   │   └── utm.ts           # UTM tracking
+│   └── integrations/
+│       └── supabase/        # Cliente Supabase (auto-gerado)
+├── supabase/
+│   └── functions/
+│       └── fetch-url-metadata/ # Edge function para metadados
+└── README.md
+```
 
-O build gera arquivos estáticos em `dist/` que podem ser servidos por qualquer servidor web.
+## 🔗 Links Úteis
 
-## 🎯 Performance
+- [Documentação Lovable](https://docs.lovable.dev)
+- [shadcn/ui](https://ui.shadcn.com)
+- [Lucide Icons](https://lucide.dev/icons)
+- [Tailwind CSS](https://tailwindcss.com)
 
-- ✅ Lazy loading de imagens
-- ✅ Cache de API (30 min)
-- ✅ Componentes otimizados
-- ✅ CSS utilitário (Tailwind)
-- ✅ Tree-shaking automático (Vite)
-- ✅ Prefers-reduced-motion respeitado
+## 📞 Suporte
 
-**Meta:** Lighthouse 95+ em todas as categorias.
-
-## ♿ Acessibilidade
-
-- ✅ Foco visível em todos os elementos interativos
-- ✅ ARIA labels e roles
-- ✅ Semântica HTML correta
-- ✅ Contraste de cores adequado (WCAG AA)
-- ✅ Texto alternativo em imagens
-- ✅ Navegação por teclado
-
-## 📝 Licença
-
-© 2025 Transvias. Todos os direitos reservados.
+Para dúvidas sobre o admin ou configuração, consulte a [documentação do Lovable Cloud](https://docs.lovable.dev/features/cloud).
 
 ---
 
-**Dúvidas ou suporte?**  
-📧 redessociais@transvias.com.br
+Desenvolvido com ❤️ para Transvias

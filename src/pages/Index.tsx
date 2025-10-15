@@ -4,6 +4,7 @@ import { LinkButton } from "@/components/LinkButton";
 import { BlogSection } from "@/components/BlogSection";
 import { SocialLinks } from "@/components/SocialLinks";
 import { Footer } from "@/components/Footer";
+import { supabase } from "@/integrations/supabase/client";
 import { ExternalLink } from "lucide-react";
 
 interface Config {
@@ -41,13 +42,33 @@ interface Config {
 
 const Index = () => {
   const [config, setConfig] = useState<Config | null>(null);
+  const [highlightedLinks, setHighlightedLinks] = useState<any[]>([]);
 
   useEffect(() => {
     fetch('/config.json')
       .then((res) => res.json())
       .then((data) => setConfig(data))
       .catch((error) => console.error('Failed to load config:', error));
+
+    // Load highlighted links from database
+    loadHighlightedLinks();
   }, []);
+
+  const loadHighlightedLinks = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('highlighted_links')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order', { ascending: true })
+        .limit(4);
+
+      if (error) throw error;
+      setHighlightedLinks(data || []);
+    } catch (error) {
+      console.error('Failed to load highlighted links:', error);
+    }
+  };
 
   if (!config) {
     return (
@@ -73,17 +94,20 @@ const Index = () => {
           </p>
         </section>
 
-        {/* Highlighted Links (temporary/promotional) */}
-        {config.highlightedLinks && config.highlightedLinks.length > 0 && (
+        {/* Highlighted Links (from database) */}
+        {highlightedLinks.length > 0 && (
           <section className="mb-8 animate-slide-up" aria-labelledby="highlighted-heading">
             <h2 id="highlighted-heading" className="mb-4 text-xl font-bold text-center">
               Destaques
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              {config.highlightedLinks.map((link) => (
+              {highlightedLinks.map((link) => (
                 <LinkButton 
-                  key={link.href} 
-                  {...link} 
+                  key={link.id} 
+                  label={link.title}
+                  href={link.url}
+                  icon={link.icon}
+                  description={link.subtitle}
                   className="border-primary/30 bg-primary/5"
                 />
               ))}
