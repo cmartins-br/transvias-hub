@@ -9,7 +9,14 @@ export interface BlogPost {
 
 // Simple cache to avoid excessive API calls
 const cache = new Map<string, { data: BlogPost[]; timestamp: number }>();
-const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
+const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
+
+// Check if current time is within allowed hours (10:00 - 19:00)
+function isWithinAllowedHours(): boolean {
+  const now = new Date();
+  const hour = now.getHours();
+  return hour >= 10 && hour < 19;
+}
 
 function stripHtml(html: string): string {
   return html.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, ' ').trim();
@@ -89,6 +96,12 @@ export async function fetchBlogPosts(
   const cached = cache.get(restUrl);
   if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
     return cached.data;
+  }
+
+  // If outside allowed hours, return cached data or empty array
+  if (!isWithinAllowedHours()) {
+    console.log('Outside allowed hours (10:00-19:00), using cached data');
+    return cached?.data || [];
   }
 
   // Try REST API first (preferred)
