@@ -34,26 +34,48 @@ export default function Admin() {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check authentication
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const verifyAdmin = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      
       if (!session) {
         navigate("/auth");
-      } else {
-        setUser(session.user);
-        loadLinks();
+        return;
       }
-    });
+
+      // Verify user has admin role
+      const { data: role, error } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', session.user.id)
+        .eq('role', 'admin')
+        .maybeSingle();
+
+      if (error || !role) {
+        toast({
+          title: "Acesso Negado",
+          description: "Você não tem privilégios de administrador",
+          variant: "destructive",
+        });
+        navigate("/");
+        return;
+      }
+
+      setUser(session.user);
+      loadLinks();
+    };
+
+    verifyAdmin();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (!session) {
         navigate("/auth");
       } else {
-        setUser(session.user);
+        verifyAdmin();
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, toast]);
 
   const loadLinks = async () => {
     setLoading(true);
