@@ -98,10 +98,10 @@ export async function fetchBlogPosts(
     return cached.data;
   }
 
-  // If outside allowed hours, return cached data or empty array
-  if (!isWithinAllowedHours()) {
-    console.log('Outside allowed hours (10:00-19:00), using cached data');
-    return cached?.data || [];
+  // If outside allowed hours and we have expired cache, return it instead of fetching
+  if (!isWithinAllowedHours() && cached) {
+    console.log('Outside allowed hours (10:00-19:00), using expired cache');
+    return cached.data;
   }
 
   // Try REST API first (preferred)
