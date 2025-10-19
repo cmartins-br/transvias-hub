@@ -36,6 +36,19 @@ function formatDate(dateString: string): string {
   });
 }
 
+function optimizeImageUrl(url: string | undefined): string | undefined {
+  if (!url) return undefined;
+  
+  // Check if it's a WordPress image URL
+  if (url.includes('wp-content/uploads')) {
+    // Add resize parameters for proportional scaling (16:9 aspect ratio)
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}w=600&h=338`;
+  }
+  
+  return url;
+}
+
 async function parseRssFeed(rssUrl: string): Promise<BlogPost[]> {
   try {
     const response = await fetch(rssUrl);
@@ -117,7 +130,7 @@ export async function fetchBlogPosts(
       link: post.link,
       date: formatDate(post.date),
       excerpt: truncateText(stripHtml(post.excerpt.rendered), 180),
-      image: post._embedded?.['wp:featuredmedia']?.[0]?.source_url,
+      image: optimizeImageUrl(post._embedded?.['wp:featuredmedia']?.[0]?.source_url),
       categories:
         post._embedded?.['wp:term']?.[0]?.map((term: any) => term.name) || [],
     }));

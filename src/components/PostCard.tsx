@@ -51,7 +51,7 @@ export function PostCard({
           <img
             src={image}
             alt={title}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
           />
         </div>
