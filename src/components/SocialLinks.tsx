@@ -1,5 +1,6 @@
 import { Linkedin, Instagram, Youtube, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { trackLinkClick } from "@/lib/analytics";
 
 interface SocialLinksProps {
   linkedin?: string;
@@ -54,6 +55,7 @@ export function SocialLinks({
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Seguir no ${label}`}
+                  onClick={() => trackLinkClick('social', label, url)}
                 >
                   <Icon className="h-5 w-5" aria-hidden="true" />
                   <span>{label}</span>

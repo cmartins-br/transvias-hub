@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackLinkClick } from "@/lib/analytics";
 import { CSSProperties } from "react";
 
 interface PostCardProps {
@@ -25,13 +26,7 @@ export function PostCard({
   style,
 }: PostCardProps) {
   const handleClick = () => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'click', {
-        event_category: 'blog_post',
-        event_label: title,
-        value: link,
-      });
-    }
+    trackLinkClick('blog_post', title, link);
   };
 
   return (

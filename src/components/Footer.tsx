@@ -1,4 +1,5 @@
 import { Mail } from "lucide-react";
+import { trackLinkClick } from "@/lib/analytics";
 
 interface FooterProps {
   email: string;
@@ -20,6 +21,7 @@ export function Footer({ email, privacyLink }: FooterProps) {
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              onClick={() => trackLinkClick('footer', 'Política de Privacidade', privacyLink)}
             >
               Política de Privacidade
             </a>
@@ -27,6 +29,7 @@ export function Footer({ email, privacyLink }: FooterProps) {
             <a
               href={`mailto:${email}`}
               className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              onClick={() => trackLinkClick('footer', 'E-mail', email)}
             >
               <Mail className="h-3.5 w-3.5" aria-hidden="true" />
               {email}

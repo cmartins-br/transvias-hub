@@ -1,6 +1,7 @@
 import * as Icons from "lucide-react";
 import { addUtmParams } from "@/lib/utm";
 import { cn } from "@/lib/utils";
+import { trackLinkClick } from "@/lib/analytics";
 
 interface LinkButtonProps {
   label: string;
@@ -20,13 +21,7 @@ export function LinkButton({
   const IconComponent = (Icons as any)[icon] || Icons.Link;
 
   const handleClick = () => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'click', {
-        event_category: 'link',
-        event_label: label,
-        value: href,
-      });
-    }
+    trackLinkClick('link', label, href);
   };
 
   return (

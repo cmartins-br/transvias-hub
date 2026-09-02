@@ -5,6 +5,7 @@ import { BlogSection } from "@/components/BlogSection";
 import { SocialLinks } from "@/components/SocialLinks";
 import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import { trackLinkClick } from "@/lib/analytics";
 import { ExternalLink } from "lucide-react";
 
 interface Config {
@@ -140,6 +141,7 @@ const Index = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            onClick={() => trackLinkClick('about', 'Saiba mais', config.about.link)}
           >
             Saiba mais
             <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />

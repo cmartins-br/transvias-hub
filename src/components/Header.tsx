@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { addUtmParams } from "@/lib/utm";
+import { trackLinkClick } from "@/lib/analytics";
 
 interface HeaderProps {
   logoUrl: string;
@@ -29,6 +30,7 @@ export function Header({ logoUrl, tagline }: HeaderProps) {
             href={addUtmParams('https://www.transvias.com.br/rotas')}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackLinkClick('header', 'Consultar Rotas')}
           >
             Consultar Rotas
           </a>

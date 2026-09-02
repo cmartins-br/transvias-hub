@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { PostCard } from "./PostCard";
 import { PostCardSkeleton } from "./PostCardSkeleton";
 import { fetchBlogPosts, BlogPost } from "@/lib/wordpress";
+import { trackLinkClick } from "@/lib/analytics";
 import { ExternalLink } from "lucide-react";
 
 interface BlogSectionProps {
@@ -54,6 +55,7 @@ export function BlogSection({ restUrl, rssUrl }: BlogSectionProps) {
             target="_blank"
             rel="noopener noreferrer"
             className="group hidden items-center gap-1 text-sm font-medium text-primary transition-colors hover:underline sm:flex"
+            onClick={() => trackLinkClick('blog_post', 'Ver todas', 'https://noticias.transvias.com.br')}
           >
             Ver todas
             <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
