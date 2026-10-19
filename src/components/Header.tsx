@@ -27,7 +27,7 @@ export function Header({ logoUrl, tagline }: HeaderProps) {
         
         <Button asChild size="sm" className="font-medium">
           <a
-            href={addUtmParams('https://www.transvias.com.br/rotas')}
+            href={addUtmParams('https://www.transvias.com.br/rotas', 'topo-rotas')}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackLinkClick('header', 'Consultar Rotas')}
