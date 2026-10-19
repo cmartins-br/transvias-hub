@@ -13,7 +13,7 @@ Portal de links (link-in-bio) profissional para a Transvias com admin integrado,
 - **SEO Otimizado**: Meta tags, Open Graph, Schema.org
 - **Dark Mode**: Tema escuro automático
 - **Responsivo**: Design mobile-first
-- **UTM Tracking**: Parâmetros UTM automáticos em todos os links externos
+- **UTM Tracking**: links para os sites Transvias repassam a UTM de origem do visitante (ex.: `?utm_source=instagram` na bio); links externos saem sem UTM
 - **Analytics**: Suporte para GA4 e Meta Pixel
 
 ## 🛠️ Tecnologias
