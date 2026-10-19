@@ -202,3 +202,7 @@ Para dúvidas sobre o admin ou configuração, consulte a [documentação do Lov
 ---
 
 Desenvolvido com ❤️ para Transvias
+
+### Links curtos por rede (bios)
+
+`vercel.json` redireciona `/ig`, `/tt`, `/in`, `/x`, `/bsky`, `/fb` e `/yt` para a hub com `?utm_source=<rede>&utm_medium=social&utm_campaign=bio`. Use `hub.transvias.com.br/ig` na bio do Instagram, `/tt` no TikTok, e assim por diante.
