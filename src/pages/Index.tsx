@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { Header } from "@/components/Header";
 import { LinkButton } from "@/components/LinkButton";
 import { BlogSection } from "@/components/BlogSection";
+import { LatestPost } from "@/components/LatestPost";
 import { SocialLinks } from "@/components/SocialLinks";
 import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { trackLinkClick } from "@/lib/analytics";
+import { fetchBlogPosts, BlogPost } from "@/lib/wordpress";
 import { ExternalLink } from "lucide-react";
 
 interface Config {
@@ -30,6 +32,9 @@ interface Config {
     instagram?: string;
     youtube?: string;
     twitter?: string;
+    tiktok?: string;
+    facebook?: string;
+    bluesky?: string;
   };
   about: {
     text: string;
@@ -44,6 +49,8 @@ interface Config {
 const Index = () => {
   const [config, setConfig] = useState<Config | null>(null);
   const [highlightedLinks, setHighlightedLinks] = useState<any[]>([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [postsLoading, setPostsLoading] = useState(true);
 
   useEffect(() => {
     fetch('/config.json')
@@ -54,6 +61,24 @@ const Index = () => {
     // Load highlighted links from database
     loadHighlightedLinks();
   }, []);
+
+  useEffect(() => {
+    if (!config) return;
+    let mounted = true;
+
+    fetchBlogPosts(config.blogRestUrl, config.blogRssUrl)
+      .then((data) => {
+        if (mounted) setPosts(data);
+      })
+      .catch((error) => console.error('Failed to fetch blog posts:', error))
+      .finally(() => {
+        if (mounted) setPostsLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, [config]);
 
   const loadHighlightedLinks = async () => {
     try {
@@ -94,6 +119,9 @@ const Index = () => {
             Conectando embarcadores e transportadoras desde 1951.
           </p>
         </section>
+
+        {/* Newest article */}
+        {posts.length > 0 && <LatestPost post={posts[0]} />}
 
         {/* Highlighted Links (from database) */}
         {highlightedLinks.length > 0 && (
@@ -150,10 +178,7 @@ const Index = () => {
       </main>
 
       {/* Blog Section */}
-      <BlogSection
-        restUrl={config.blogRestUrl}
-        rssUrl={config.blogRssUrl}
-      />
+      <BlogSection posts={posts.slice(1)} loading={postsLoading} />
 
       {/* Social Links */}
       <SocialLinks {...config.social} />

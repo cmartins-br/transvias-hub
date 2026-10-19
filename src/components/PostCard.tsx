@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackLinkClick } from "@/lib/analytics";
+import { addUtmParams, slugFromUrl } from "@/lib/utm";
 import { CSSProperties } from "react";
 
 interface PostCardProps {
@@ -31,7 +32,7 @@ export function PostCard({
 
   return (
     <a
-      href={link}
+      href={addUtmParams(link, undefined, undefined, 'blog', slugFromUrl(link))}
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleClick}
