@@ -32,7 +32,7 @@ export function PostCard({
 
   return (
     <a
-      href={addUtmParams(link, undefined, undefined, 'blog', slugFromUrl(link))}
+      href={addUtmParams(link, slugFromUrl(link))}
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleClick}

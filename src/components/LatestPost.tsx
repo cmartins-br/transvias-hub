@@ -9,7 +9,7 @@ interface LatestPostProps {
 
 // Newest article on top: people arriving from a social post's "link na bio" want that article first
 export function LatestPost({ post }: LatestPostProps) {
-  const href = addUtmParams(post.link, undefined, undefined, 'artigo-do-dia', slugFromUrl(post.link));
+  const href = addUtmParams(post.link, slugFromUrl(post.link));
 
   return (
     <section className="mb-10 animate-fade-in" aria-labelledby="latest-heading">

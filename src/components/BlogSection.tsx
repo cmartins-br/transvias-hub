@@ -26,7 +26,7 @@ export function BlogSection({ posts, loading }: BlogSectionProps) {
           </div>
           
           <a
-            href={addUtmParams('https://noticias.transvias.com.br', undefined, undefined, 'blog')}
+            href={addUtmParams('https://noticias.transvias.com.br', 'ver-todas')}
             target="_blank"
             rel="noopener noreferrer"
             className="group hidden items-center gap-1 text-sm font-medium text-primary transition-colors hover:underline sm:flex"

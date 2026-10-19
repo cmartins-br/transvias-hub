@@ -3,6 +3,10 @@ import { addUtmParams } from "@/lib/utm";
 import { cn } from "@/lib/utils";
 import { trackLinkClick } from "@/lib/analytics";
 
+// "Consultar Rotas" -> "consultar-rotas", used as utm_content
+const slugify = (text: string) =>
+  text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
 interface LinkButtonProps {
   label: string;
   href: string;
@@ -26,7 +30,7 @@ export function LinkButton({
 
   return (
     <a
-      href={addUtmParams(href)}
+      href={addUtmParams(href, slugify(label))}
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleClick}
