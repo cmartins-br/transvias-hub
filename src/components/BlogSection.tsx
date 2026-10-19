@@ -1,41 +1,16 @@
-import { useEffect, useState } from "react";
 import { PostCard } from "./PostCard";
 import { PostCardSkeleton } from "./PostCardSkeleton";
-import { fetchBlogPosts, BlogPost } from "@/lib/wordpress";
+import { BlogPost } from "@/lib/wordpress";
 import { trackLinkClick } from "@/lib/analytics";
+import { addUtmParams } from "@/lib/utm";
 import { ExternalLink } from "lucide-react";
 
 interface BlogSectionProps {
-  restUrl: string;
-  rssUrl: string;
+  posts: BlogPost[];
+  loading: boolean;
 }
 
-export function BlogSection({ restUrl, rssUrl }: BlogSectionProps) {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let mounted = true;
-
-    fetchBlogPosts(restUrl, rssUrl)
-      .then((data) => {
-        if (mounted) {
-          setPosts(data);
-          setLoading(false);
-        }
-      })
-      .catch((error) => {
-        console.error('Failed to fetch blog posts:', error);
-        if (mounted) {
-          setPosts([]);
-          setLoading(false);
-        }
-      });
-
-    return () => {
-      mounted = false;
-    };
-  }, [restUrl, rssUrl]);
+export function BlogSection({ posts, loading }: BlogSectionProps) {
 
   return (
     <section className="w-full py-12" aria-labelledby="blog-heading">
@@ -51,7 +26,7 @@ export function BlogSection({ restUrl, rssUrl }: BlogSectionProps) {
           </div>
           
           <a
-            href="https://noticias.transvias.com.br"
+            href={addUtmParams('https://noticias.transvias.com.br', undefined, undefined, 'blog')}
             target="_blank"
             rel="noopener noreferrer"
             className="group hidden items-center gap-1 text-sm font-medium text-primary transition-colors hover:underline sm:flex"
@@ -64,7 +39,7 @@ export function BlogSection({ restUrl, rssUrl }: BlogSectionProps) {
 
         {loading ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 6 }).map((_, i) => (
+            {Array.from({ length: 3 }).map((_, i) => (
               <PostCardSkeleton key={i} />
             ))}
           </div>
