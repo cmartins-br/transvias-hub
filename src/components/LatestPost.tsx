@@ -14,7 +14,7 @@ export function LatestPost({ post }: LatestPostProps) {
   return (
     <section className="mb-10 animate-fade-in" aria-labelledby="latest-heading">
       <h2 id="latest-heading" className="mb-4 text-center text-xl font-bold">
-        Leia o artigo de hoje
+        Artigo mais recente
       </h2>
       <a
         href={href}
